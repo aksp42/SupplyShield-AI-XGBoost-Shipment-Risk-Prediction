@@ -29,6 +29,52 @@ SupplyShield AI estimates the probability that a shipment will be delivered late
 </div>
 
 ---
+## Executive Snapshot
+
+| Metric              | Value                                     |
+| ------------------- | ----------------------------------------- |
+| Accuracy            | **84.87%**                                |
+| ROC-AUC             | **92.58%**                                |
+| F1 Score            | **86.34%**                                |
+| Production Features | **57**                                    |
+| Dataset             | **180,519 Orders**                        |
+| Model               | **Frozen XGBoost + Isotonic Calibration** |
+| Deployment          | **Single-file Flask + Embedded React 18** |
+
+---
+
+## Overview
+
+SupplyShield AI predicts the probability that a shipment will be delivered late **before dispatch**, transforming that probability into an understandable **Risk Score (0–100)**, **Risk Level**, and **Business Recommendation**.
+
+Unlike traditional shipment tracking systems that react after delays occur, this project provides **pre-dispatch decision intelligence**, helping logistics teams identify risky shipments before they leave the warehouse.
+
+The complete application—including the Flask REST API and an embedded React 18 dashboard—runs from a single Python file while loading a frozen production model from the `assets/` directory.
+
+---
+
+## Why This Project Stands Out
+
+* Production-ready **Frozen XGBoost deployment**
+* **Explainable AI (XAI)** instead of black-box predictions
+* Real-time calibrated risk scoring
+* Business-friendly logistics recommendations
+* Single-file deployment with embedded React dashboard
+* Deterministic predictions (same input → same output)
+
+---
+
+## Dashboard Showcase
+
+| Executive Dashboard | Shipment Prediction |
+| ------------------- | ------------------- |
+| *(Add Screenshot)*  | *(Add Screenshot)*  |
+
+| Explainable AI     | Model Story        |
+| ------------------ | ------------------ |
+| *(Add Screenshot)* | *(Add Screenshot)* |
+
+---
 
 ## Contents
 
@@ -62,26 +108,42 @@ SupplyShield AI estimates the probability that a shipment will be delivered late
 
 ## Quick start
 
-**Requirements:** Python 3.10 or newer.
+
+## Requirements
+
+* Python 3.10+
+* `requirements.txt`
+
+## Installation
 
 ```bash
+git clone https://github.com/aksp42/SupplyShield-AI-XGBoost-Shipment-Risk-Prediction.git
+
+cd SupplyShield-AI-XGBoost-Shipment-Risk-Prediction
+
 pip install -r requirements.txt
+
 python Akanksha_Singh_SupplyShieldAI.py
 ```
 
-Open **http://localhost:5000**. A healthy start-up prints:
+Open:
 
+```text
+http://localhost:5000
 ```
+
+Expected startup log:
+
+```text
 Loading frozen model...
-Model: XGBoost | boosting rounds=1400 | features=57 | operating threshold=0.43
-57 features loaded.
+Model: XGBoost
+Boosting rounds: 1400
+Feature count: 57
+Operating threshold: 0.43
 Processed assets loaded.
-Encoders verified against processed data (shipping mode, market, segment, department).
-Model wiring check: 94.5% agreement with real labels on 1500 reference orders.
+Encoders verified.
 Server ready.
 ```
-
-If the encoder verification fails, the server stops and lists the mismatch instead of serving wrong predictions.
 
 ---
 
@@ -342,9 +404,51 @@ curl -X POST http://localhost:5000/predict \
 Open the browser console (F12) to see every request sent to `/predict` together with the server's response.
 
 ---
+# Business Impact
 
-## Credits
+SupplyShield AI demonstrates how predictive analytics can support logistics operations through:
 
-- Dataset: DataCo Global — *DataCo Smart Supply Chain for Big Data Analysis* (Kaggle).
-- Built by **Akanksha Singh** as part of the IBM SkillsBuild × AICTE internship.
-- For educational and internship-submission purposes.
+* Early shipment risk identification
+* Explainable AI decision support
+* Faster operational decision-making
+* Business-friendly visual analytics
+* Production-oriented ML deployment
+  
+---
+
+# Credits
+
+**Author**
+
+**Akanksha Singh**
+
+B.Tech CSE (Data Science)
+
+Noida Institute of Engineering and Technology
+
+IBM SkillsBuild × AICTE Data Analytics with AI Internship 2026
+
+### Project Focus
+
+* Machine Learning
+* Explainable AI
+* Business Intelligence
+* Predictive Analytics
+* Supply Chain Risk Intelligence
+
+### Dataset
+
+**DataCo Smart Supply Chain for Big Data Analysis (Kaggle)**
+
+---
+
+<div align="center">
+
+### ⭐ SupplyShield AI demonstrates how Explainable AI can transform raw shipment data into actionable logistics decisions.
+
+**Built for IBM SkillsBuild × AICTE Internship 2026**
+
+If you found this project interesting, consider starring the repository.
+
+</div>
+
