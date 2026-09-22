@@ -453,7 +453,7 @@ SupplyShield AI demonstrates how predictive analytics can support logistics oper
 
 **Author**
 
-**Akanksha Singh**
+**Akanksha Singh** - https://www.linkedin.com/in/akanksha-singh-4715a0351/ 
 
 B.Tech CSE (Data Science)
 
