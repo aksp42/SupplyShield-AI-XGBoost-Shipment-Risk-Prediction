@@ -150,14 +150,24 @@ Server ready.
 ## Project structure
 
 ```
-SupplyShield_AI/
-├── Akanksha_Singh_SupplyShieldAI.py   # Flask API + embedded React dashboard
-├── requirements.txt
+
+SupplyShield-AI-XGBoost-Shipment-Risk-Prediction/
+│
+├── Akanksha_Singh_SupplyShieldAI.py          # Flask API + Embedded React Dashboard
+├── Akanksha_Singh_SupplyShieldAI_Report.docx # Project Report
 ├── README.md
-├── Akanksha_Singh_SupplyShieldAI_Report.docx # Project report
-└── assets/
-    ├── supplyshield_frozen.pkl        # trained XGBoost, calibrator, encoders, metrics
-    └── processed_data.pkl             # 180,519 × 57 processed feature matrix
+├── requirements.txt
+│
+├── assets/
+│   ├── supplyshield_frozen.pkl               # Frozen XGBoost model
+│   └── processed_data.pkl                    # Processed feature dataset
+│
+└── screenshots/
+    ├── hero-dashboard.png
+    ├── prediction-workflow.png
+    ├── model-explainability.png
+    └── model-story.png
+
 ```
 
 The raw Kaggle CSV is **not** needed to run the application.
