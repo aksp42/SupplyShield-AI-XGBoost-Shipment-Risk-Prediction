@@ -88,11 +88,11 @@ If the encoder verification fails, the server stops and lists the mismatch inste
 ## Project structure
 
 ```
-SupplyShield_AI_Submission/
+SupplyShield_AI/
 ├── Akanksha_Singh_SupplyShieldAI.py   # Flask API + embedded React dashboard
 ├── requirements.txt
 ├── README.md
-├── Akanksha_Singh_SupplyShieldAI.docx # Project report
+├── Akanksha_Singh_SupplyShieldAI_Report.docx # Project report
 └── assets/
     ├── supplyshield_frozen.pkl        # trained XGBoost, calibrator, encoders, metrics
     └── processed_data.pkl             # 180,519 × 57 processed feature matrix
