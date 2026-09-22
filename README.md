@@ -69,33 +69,33 @@ The complete application—including the Flask REST API and an embedded React 18
 
 ### Executive Dashboard
 
-![Executive Dashboard](screenshots/executive-dashboard.png)
+![Executive Dashboard](screenshots/hero-dashboard.png)
 
-<sub>Executive overview with live KPIs, model metrics, and shipment intelligence.</sub>
+<sub>Enterprise overview with live KPIs, model status, AI workflow, and shipment intelligence.</sub>
 
 ---
 
 ### Shipment Risk Prediction
 
-![Shipment Prediction](screenshots/shipment-prediction.png)
+![Shipment Risk Prediction](screenshots/prediction-workflow.png)
 
-<sub>Interactive prediction form with AI Risk Meter and real-time risk assessment.</sub>
+<sub>Interactive prediction interface with the AI Risk Meter, calibrated risk score, and business recommendations.</sub>
 
 ---
 
 ### Explainable AI
 
-![Explainable AI](screenshots/explainable-ai.png)
+![Explainable AI](screenshots/model-explainability.png)
 
-<sub>Live XGBoost feature importance and AI-generated feature explanations.</sub>
+<sub>Top-15 XGBoost feature importance showing how business signals influence shipment delay predictions.</sub>
 
 ---
 
 ### Story of the Model
 
-![Model Story](screenshots/model-story.png)
+![Story of the Model](screenshots/model-story.png)
 
-<sub>The complete journey from baseline models to the final production-ready XGBoost model.</sub>
+<sub>The complete journey from baseline machine learning models to the final production-ready XGBoost pipeline.</sub>
 
 ---
 
