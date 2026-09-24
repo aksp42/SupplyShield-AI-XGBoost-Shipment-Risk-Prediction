@@ -1,5 +1,4 @@
-
-name: SupplyShield AI CI
+name: SupplyShield AI CI/CD
 
 on:
   push:
@@ -11,7 +10,8 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  test:
+    name: Test (Syntax & Model Validation)
     runs-on: ubuntu-24.04
 
     steps:
@@ -25,29 +25,27 @@ jobs:
         with:
           python-version: "3.13"
 
-      - name: Verify Git LFS Files
-        run: |
-          git lfs pull
-
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install flake8
           pip install -r requirements.txt
+          pip install flake8 requests
 
-      - name: Verify Project Structure
+      - name: Pull Git LFS Assets
+        run: git lfs pull
+
+      - name: Verify Project Files
         run: |
           test -f Akanksha_Singh_SupplyShieldAI.py
-          test -f README.md
-          test -f requirements.txt
           test -f assets/supplyshield_frozen.pkl
           test -f assets/processed_data.pkl
+          echo "Project structure verified."
 
       - name: Python Syntax Check
         run: |
           python -m py_compile Akanksha_Singh_SupplyShieldAI.py
 
-      - name: Lint with Flake8
+      - name: Lint
         run: |
           flake8 Akanksha_Singh_SupplyShieldAI.py \
             --count \
@@ -55,15 +53,72 @@ jobs:
             --show-source \
             --statistics
 
-      - name: Validate Frozen Assets
+      - name: Start Flask Server
         run: |
-          python - << 'PY'
-          from pathlib import Path
-          assert Path("assets/supplyshield_frozen.pkl").exists()
-          assert Path("assets/processed_data.pkl").exists()
-          print("Production assets verified.")
+          python Akanksha_Singh_SupplyShieldAI.py &
+          sleep 20
+
+      - name: API Smoke Test
+        run: |
+          python - <<'PY'
+          import requests
+
+          overview = requests.get("http://127.0.0.1:5000/api/overview", timeout=30)
+          assert overview.status_code == 200
+
+          payload = {
+              "Shipping Mode":"Second Class",
+              "Days for shipment (scheduled)":2,
+              "Market":"Europe",
+              "Customer Segment":"Consumer",
+              "Department Name":"Technology",
+              "Order Item Quantity":2,
+              "Order Item Discount Rate":0.10,
+              "Order Month":6,
+              "Order Weekday":2
+          }
+
+          r = requests.post("http://127.0.0.1:5000/predict", json=payload, timeout=60)
+          assert r.status_code == 200
+          data = r.json()
+          assert "risk_score" in data
+          assert "risk_level" in data
+          assert "recommended_action" in data
+          print("Smoke test passed.")
           PY
 
-      - name: CI Passed
+  build:
+    name: Build Validation
+    runs-on: ubuntu-24.04
+    needs: test
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v5
+        with:
+          lfs: true
+
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+
+      - name: Install Dependencies
         run: |
-          echo "SupplyShield AI build validation completed successfully."
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Package Project
+        run: |
+          mkdir release
+          cp Akanksha_Singh_SupplyShieldAI.py release/
+          cp README.md release/
+          cp requirements.txt release/
+          cp Akanksha_Singh_SupplyShieldAI_Report.docx release/
+          cp -r assets release/
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: SupplyShieldAI-Production-Build
+          path: release/
